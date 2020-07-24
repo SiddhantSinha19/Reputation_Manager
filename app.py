@@ -23,10 +23,10 @@ API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
 
 #for twitter
-consumer_key= 'u0BKTTSR7ElPqLBcBYA4tTBba'
-consumer_secret= 'uWd6dERo7yfooN48nJ9s7mmyxDa9bz5yXGtQMnTnG3Ue8YkhLL'
-access_token= '1202138043081052161-CGiRTp7zI8xbM7XKbbIAO1AZFK5RTH'
-access_token_secret= 'bfNsLDuJoQQ42K0QNAoQiYURQA9IyHzIq75k6goT7Nzl6'
+consumer_key= <your own details>
+consumer_secret= <your own details>
+access_token= <your own details>
+access_token_secret= <your own details>
 
 def get_authenticated_service():
     credentials = None
