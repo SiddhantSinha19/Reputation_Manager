@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="static/gt27.css">
+	<link href="https://fonts.googleapis.com/css?family=Satisfy&display=swap" rel="stylesheet">
+	<title> Index </title>
+	<style>
+		.main_text{
+			color: white;
+  			font-weight: bold;
+  			font-family: 'Satisfy', cursive;
+  			font-size:50px;
+		}
+	
+		div.content{
+			background: rgb(195,123,255);
+  			background: -moz-linear-gradient(90deg, rgba(195,123,255,1) 0%, rgba(131,180,237,1) 100%);
+  			background: -webkit-linear-gradient(90deg, rgba(195,123,255,1) 0%, rgba(131,180,237,1) 100%);
+  			background: linear-gradient(90deg, rgba(195,123,255,1) 0%, rgba(131,180,237,1) 100%);
+  			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c37bff",endColorstr="#83b4ed",GradientType=1);
+		}
+		
+	</style>
+	</head>
+	<body>
+
+		<div class="sidebar">
+		  <a class="active" href="{{ url_for('index')}}">Home</a>
+		  <a href="{{ url_for('about') }}">About</a>
+		  <a href="{{ url_for('twitter')}}">Tweets</a>
+		  <a href="{{ url_for('youtube')}}">Youtube Comments</a>
+		  <a href="{{ url_for('news')}}">News</a>
+		  <a href="{{ url_for('contact') }}">Contact</a>
+		</div>
+
+		<div class="content">
+	
+  			<h1 class="main_text">Reputation Manager</h1>
+  			<div class="searchform">
+			  	<form action="{{ url_for('index') }}" id="index_form" method="post">
+			  		
+	  				<input type="text" id="search" name="search" placeholder="Search.."/>
+	  				<br> </br>
+	  				<input formaction="{{ url_for('youtube') }}" id="searchbtn" name="searchbtn" type="submit" value="Youtube Comments"/>
+	  				<input formaction="{{ url_for('news') }}" id="searchbtn" name="searchbtn" type="submit" value="News"/>
+	  				<input formaction="{{ url_for('twitter') }}" id="searchbtn" name="searchbtn" type="submit" value="Tweets"/>
+				</form>
+		  	</div>
+
+
+		</div>
+		<script>
+			var form = document.getElementById('index_form');
+			form.onsubmit = function() {
+				var tf = true;
+				if(form.search.value == '')
+				{
+					document.getElementById("search").style.borderColor="#ff1a1a";
+					tf = false;
+				}
+				return tf;
+			};
+		</script>
+	</body>
+</html>

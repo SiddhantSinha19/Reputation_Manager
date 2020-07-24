@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="static/gt.css">
+	<title> Youtube </title>
+	</head>
+	<body>
+		<div class="sidebar">
+		  <a href="{{ url_for('index')}}">Home</a>
+		  <a href="{{ url_for('about') }}">About</a>
+		  <a href="{{ url_for('twitter')}}">Tweets</a>
+		  <a class="active" href="{{ url_for('youtube')}}">Youtube Comments</a>
+		  <a href="{{ url_for('news')}}">News</a>
+		  <a href="{{ url_for('contact') }}">Contact</a>
+		</div>
+
+		<div class="content">
+		 	<div class="heading">
+		  		<h2> Reputation Manager - Analyse Youtube comments </h2>
+		  		<p> Hey there, this page lets you analyse your company's or product's market reputation specifically from youtube comments. Simply enter a keyword in the text box below and hit the search button to analyse. </p>
+		  		<p> You can also choose a particular platform to analyse market Reputation </p>
+		  	</div>
+		  	<div class="searchform">
+			  	<form action="{{ url_for('youtube') }}" id="youtube_form" method="post">
+			  		<h4> Enter a Keyword related to the product/brand/company you want to search for.</h4>
+	  				<input type="text" id="search" name="search" placeholder="Search.."/>
+	  				<br> </br>
+	  				<input id="searchbtn" name="searchbtn" type="submit" value="Analyse"/>
+				</form>
+		  	</div>
+			<main>
+	<div id="piechart"></div>
+	<p id="info" style="text-align: center;"> Here are some most impactful positive and negative comments extracted by our system. You can click on the Author name to view his profile </p>
+	<div>
+		<table id="table_data1" class="mytable">
+			<caption>Positive Comments</caption>
+			<col width="30%">
+  			<col width="70%">
+			<tr>
+				<th> Name </th>
+				<th> Comment </th>
+			</tr>
+			<tbody>
+				{% for i in range(0,to_display_pos) %}
+				<tr>
+					<td class="cell"> <a href="{{ (pos_yt[i]).authorChannelURL }}" target="_blank">{{ (pos_yt[i]).authorDisplayName }}</a> </td>
+					<td> {{ (pos_yt[i]).comment }} </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<table id="table_data2" class="mytable">
+			<caption>Negative Comments</caption>
+			<col width="30%">
+  			<col width="70%">
+			<tr>
+				<th> Name </th>
+				<th> Comment </th>
+			</tr>
+			<tbody>
+				{% for i in range(0,to_display_neg) %}
+				<tr>
+					<td class="cell"> <a href="{{ (neg_yt[i]).authorChannelURL }}" target="_blank">{{ (neg_yt[i]).authorDisplayName }}</a> </td>
+					<td> {{ (neg_yt[i]).comment }} </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table> 
+	</div>
+	<div>
+		<div class="heading_more_pos">
+		  	<h2> Reputation Manager - Analyse Youtube comments </h2>
+		  	<p> You can view all the positive comments here which were extracted by our system. The comments are sorted based on positivity. The top most comment is most positive comment and last comment is least positive. </p>
+		  	<p> Further, click on a name, to analyse his/her Youtube channel. </p>
+		</div>
+		<table id="mytableviewmore_posid" class="mytableviewmore_pos">
+			<caption>Positive Comments</caption>
+			<col width="12%">
+  			<col width="80%">
+  			<col width="8%">
+  			<tr>
+				<th> Name </th>
+				<th> Comment </th>
+				<th> Score </th>
+			</tr>
+			<tbody>
+				{% for item in pos_yt %}
+				<tr>
+					<td class="cell"> <a href="{{ item.authorChannelURL }}" target="_blank"> {{ item.authorDisplayName }} </a> </td>
+					<td> {{ item.comment }} </td>
+					<td> {{ item.SCORE }} </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="heading_more_neg">
+		  	<h2> Reputation Manager - Analyse Youtube comments </h2>
+		  	<p> You can view all the negative comments here which were extracted by our system. The comments are sorted based on negativity. The top most comment is most negative comment and last comment is least negative. </p>
+		  	<p> Further, click on a name, to analyse his/her Youtube channel. </p>
+		</div>
+		<table id="mytableviewmore_negid"class="mytableviewmore_neg">
+			<caption>Negative Comments</caption>
+			<col width="12%">
+  			<col width="80%">
+  			<col width="8%">
+  			<tr>
+				<th> Name </th>
+				<th> Comment </th>
+				<th> Score </th>
+			</tr>
+			<tbody>
+				{% for item in neg_yt %}
+				<tr>
+					<td class="cell"> <a href="{{ item.authorChannelURL }}" target="_blank"> {{ item.authorDisplayName }} </a> </td>
+					<td> {{ item.comment }} </td>
+					<td> {{ item.SCORE }} </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="view_more_buttons">
+		<button class="extra_buttons" id="pos_view_more"> All positive reviews </button>
+		<button class="extra_buttons" id="neg_view_more"> All negative reviews </button>
+		<button class="extra_buttons" id="go_back"> Go back </button>
+	</div>
+</main>
+		</div>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script>
+			var form = document.getElementById('youtube_form');
+			form.onsubmit = function() {
+				var tf = true;
+				if(form.search.value == '')
+				{
+					document.getElementById("search").style.borderColor="#ff1a1a";
+					tf = false;
+				}
+				return tf;
+			};
+		</script>
+		<script>
+			$(document).ready(function(){
+				$('.mytableviewmore_pos').hide();
+				$('.mytableviewmore_neg').hide();
+				$('#go_back').hide();
+				$(".heading_more_neg").hide();
+				$(".heading_more_pos").hide();
+			  	$("#pos_view_more").click(function(){
+			    	$(".searchform").hide();
+			   		$(".heading").hide();
+			    	$("#table_data1").hide();
+			    	$("#table_data2").hide();
+			    	$('#go_back').show();
+			    	$("#neg_view_more").hide();
+			    	$("#pos_view_more").hide();
+			    	$('.mytableviewmore_pos').show();
+			    	$('#piechart').hide();
+			    	$('html,body').scrollTop(0);
+			    	$(".heading_more_pos").show();
+			    	$('#info').hide();
+			  	});
+			  	$("#neg_view_more").click(function(){
+			    	$(".searchform").hide();
+			   		$(".heading").hide();
+			    	$("#table_data1").hide();
+			    	$("#table_data2").hide();
+			    	$('#go_back').show();
+			    	$("#neg_view_more").hide();
+			    	$("#pos_view_more").hide();
+			    	$('.mytableviewmore_neg').show();
+			    	$('#piechart').hide();
+			    	$('html,body').scrollTop(0);
+			    	$(".heading_more_neg").show();
+			    	$('#info').hide();
+			  	});
+			  	$("#go_back").click(function(){
+			  		$(".searchform").show();
+			    	$(".heading").show();
+			    	$("#table_data1").show();
+			    	$("#table_data2").show();
+			    	$('#go_back').hide();
+			    	$("#pos_view_more").show();
+			    	$("#neg_view_more").show();
+			    	$('.mytableviewmore_pos').hide();
+			    	$('.mytableviewmore_neg').hide();
+			    	$('#piechart').show();
+			    	$(".heading_more_pos").hide();
+			    	$(".heading_more_neg").hide();
+			    	$('html,body').scrollTop(0);
+			    	$('#info').show();
+			  	});
+			});
+		</script>
+		<script type="text/javascript">
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+			var pos = document.getElementById("mytableviewmore_posid").rows.length;
+			var neg = document.getElementById("mytableviewmore_negid").rows.length;
+			function drawChart() {
+				var data = google.visualization.arrayToDataTable([
+					['Comment-type', 'Number of comments'],
+					['Positive comment', pos],
+					['Negative Comment', neg],
+				]);
+				var options = {'title':'%age of +ve and -ve comments', 'width':550, 'height':400};
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+	  			chart.draw(data, options);
+			}
+		</script>
+	</body>
+</html>
