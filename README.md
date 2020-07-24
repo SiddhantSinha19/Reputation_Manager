@@ -12,6 +12,8 @@ Please note: If you download the entire code and try to run as it is, it might n
 
 So please use this code as a reference and use your own credentials.
 
+You will have to create your own client_secret.json file
+
 The webiste, extracts tweets, youtube comments, and google news and classifies them as positive or negative.
 This is done for a particular keyboard entered in the input box.
 
