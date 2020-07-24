@@ -10,3 +10,15 @@ Please note: If you download the entire code and try to run as it is, it might n
 
 So please use this code as a reference and use your own credentials.
 
+The webiste, extracts tweets, youtube comments, and google news and classifies them as positive or negative.
+This is done for a particular keyboard entered in the input box.
+
+WEBSITE CREATION: html,flask,css, javascript
+
+MODEL USED: Pre-trained model - VADER SENTIMENT ANALYSYS.
+
+I created my own model based on LSTM architecture and named it "SentiSid". It gave an accuracy of 76%. Since VADER had 90% accuracy, we decided to go with that. SentiSid can be tuned and trained further and used.
+
+Check out code for SentiSid here - https://github.com/SiddhantSinha19/LSTM_SentimentClass
+
+For any further queries - reach out to me at sid.ronaldo1904@gmail.com
