@@ -1,5 +1,7 @@
 Reputation Manager
+
 WATCH WORKING DEMO: https://drive.google.com/file/d/1I4k7x1qqGaCz7huzQnn5XsWsxmtktcD1/view?usp=sharing
+
 DATA SET LINK: http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip
 
 With the internet being a massive weapon of both construction and destruction, this Reputation Management is designed to monitor users’ online reviews of products and services. It helps spread positive customer experiences through review platforms and help tackle the negative reviews and comments.
