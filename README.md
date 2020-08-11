@@ -1,6 +1,6 @@
 Project Name: Reputation Manager <br>
 Author Name: Siddhant Sinha <br>
-Project Date: April 2020 <br>
+Project Date: December 2019 <br>
 WATCH WORKING DEMO: https://drive.google.com/file/d/1I4k7x1qqGaCz7huzQnn5XsWsxmtktcD1/view?usp=sharing <br>
 
 DATA SET LINK: http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip
